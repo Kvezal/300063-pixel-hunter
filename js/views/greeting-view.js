@@ -27,10 +27,6 @@ class GreetingView extends AbstractView {
     const buttonContinue = element.querySelector(`.greeting__continue`);
     buttonContinue.onclick = (evt) => this.continueHandler(evt);
   }
-
-  continueHandler() {
-
-  }
 }
 
 export default GreetingView;

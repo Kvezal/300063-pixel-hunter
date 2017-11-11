@@ -1,8 +1,10 @@
 import AbstractView from './abstract-view';
 
 class LevelFirstTypeView extends AbstractView {
-  constructor() {
+  constructor(gameView) {
     super();
+
+    this.answerHandler = gameView.firstLevelType.answerHandler;
   }
 
   get template() {
@@ -37,10 +39,11 @@ class LevelFirstTypeView extends AbstractView {
 
   bind(element) {
     const form = element.querySelector(`.game__content`);
-    form.onsubmit = (evt) => this.formHandler(evt);
 
     const radioButtons = form.querySelectorAll(`input[type='radio']`);
-    radioButtons.onclick = (evt) => this.answerHandler(evt, form);
+    [...radioButtons].forEach((radio) => {
+      radio.onchange = (evt) => this.answerHandler(evt, form);
+    });
   }
 }
 

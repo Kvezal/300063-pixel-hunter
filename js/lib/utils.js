@@ -1,7 +1,7 @@
 const main = document.querySelector(`.central`);
 
 class Utils {
-  static getDOMElementFromTemplate(murkup) {
+  static getElementFromTemplate(murkup) {
     const template = document.createElement(`template`);
     template.innerHTML = murkup;
     return template.content;
@@ -22,7 +22,11 @@ class Utils {
   }
 
   static displayScreen(newElement) {
-    this.displayElement(newElement, main);
+    this.displayElement(newElement, main, true);
+  }
+
+  static getLevel(level, data) {
+    return data[level];
   }
 }
 

@@ -1,16 +1,18 @@
+import App from '../application';
+
 class LevelThirdTypeScreen {
-  constructor() {
+  init(gameModel) {
+    this.answerHandler = (evt) => {
+      ++gameModel.state.level;
+      if (gameModel.isCanPlay()) {
+        App.showGameScreen(gameModel.state);
+        return;
+      }
+      App.showStatsScreen();
+    };
 
-  }
-
-  answerHandler(evt, form) {
-    evt.preventDefault();
-    form.submit();
-  }
-
-  formHandler(evt) {
-    evt.preventDefault();
+    return this;
   }
 }
 
-export default LevelThirdTypeScreen;
+export default new LevelThirdTypeScreen();

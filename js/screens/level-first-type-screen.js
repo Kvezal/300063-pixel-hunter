@@ -1,28 +1,30 @@
-class LevelFirstTypeScreen {
-  constructor(gameView) {
-    super();
+import App from '../application';
 
-    this.answerHandler = gameView.firstTypeLevel.answerHandler;
+class LevelFirstTypeScreen {
+  init(gameModel) {
+    this.answerHandler = (evt, form) => {
+      evt.preventDefault();
+      if (!this.checkedForm(form)) {
+        return;
+      }
+      ++gameModel.state.level;
+      if (gameModel.isCanPlay()) {
+        App.showGameScreen(gameModel.state);
+        return;
+      }
+      App.showStatsScreen();
+    };
+
+    return this;
   }
 
   checkedForm(form) {
     const gameOptions = form.querySelectorAll(`.game__option`);
-    [...gameOptions].every((option) => {
+    return [...gameOptions].every((option) => {
       const groupRadios = option.querySelectorAll(`input[type='radio']`);
       return [...groupRadios].some((radio) => radio.checked);
     });
   }
-
-  answerHandler(evt, form) {
-    evt.preventDefault();
-    if (!this.checkedForm(form)) {
-      form.submit();
-    }
-  }
-
-  formHandler(evt) {
-    evt.preventDefault();
-  }
 }
 
-export default LevelFirstTypeScreen;
+export default new LevelFirstTypeScreen();

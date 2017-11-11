@@ -62,7 +62,7 @@ class StatsView extends AbstractView {
             <td colspan="5" class="result__total  result__total--final">950</td>
           </tr>
         </table>
-        <table class="result__table">
+        <!--<table class="result__table">
           <tr>
             <td class="result__number">2.</td>
             <td>
@@ -113,9 +113,14 @@ class StatsView extends AbstractView {
           <tr>
             <td colspan="5" class="result__total  result__total--final">950</td>
           </tr>
-        </table>
+        </table>-->
       </div>`
     );
+  }
+
+  bind(element) {
+    const backButton = element.querySelector(`.back`);
+    backButton.onclick = (evt) => this.backButtonHandler(evt);
   }
 }
 

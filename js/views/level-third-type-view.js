@@ -1,8 +1,10 @@
 import AbstractView from './abstract-view';
 
 class LevelThirdTypeView extends AbstractView {
-  constructor() {
+  constructor(gameView) {
     super();
+
+    this.answerHandler = gameView.thirdLevelType.answerHandler;
   }
 
   get template() {
@@ -23,14 +25,10 @@ class LevelThirdTypeView extends AbstractView {
   }
 
   bind(element) {
-    const form = element.querySelector(`.game__content`);
-    form.onsubmit = (evt) => this.formHandler(evt);
-
-    const options = form.querySelectorAll(`img`);
-    options.forEach((option) => {
-      option.onclick = (evt) => this.answerHandler(evt, form);
+    const options = element.querySelectorAll(`.game__option`);
+    [...options].forEach((option) => {
+      option.onclick = (evt) => this.answerHandler(evt);
     });
-
   }
 }
 

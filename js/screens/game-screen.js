@@ -1,4 +1,4 @@
-import App from '../application';
+// import App from '../application';
 import GameModel from '../models/game-model';
 import GameView from '../views/game-view';
 import Utils from '../lib/utils';
@@ -7,8 +7,8 @@ import secondLevelType from './level-second-type-screen';
 import thirdLevelType from './level-third-type-screen';
 
 class GameScreen {
-  constructor(data) {
-    this.model = new GameModel(data);
+  constructor(gameData) {
+    this.model = new GameModel(gameData);
   }
 
   init(state) {

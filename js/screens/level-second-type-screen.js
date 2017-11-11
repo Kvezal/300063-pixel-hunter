@@ -1,23 +1,20 @@
+import App from '../application';
+
 class LevelSecondTypeScreen {
-  constructor() {
+  init(gameModel) {
+    this.answerHandler = (evt) => {
+      evt.preventDefault();
 
-  }
+      ++gameModel.state.level;
+      if (gameModel.isCanPlay()) {
+        App.showGameScreen(gameModel.state);
+        return;
+      }
+      App.showStatsScreen();
+    };
 
-  checkedForm(form) {
-    const groupRadios = form.querySelectorAll(`input[type='radio']`);
-    return [...groupRadios].some((radio) => radio.checked);
-  }
-
-  answerHandler(evt, form) {
-    evt.preventDefault();
-    if (!this.checkedForm(form)) {
-      form.submit();
-    }
-  }
-
-  formHandler(evt) {
-    evt.preventDefault();
+    return this;
   }
 }
 
-export default LevelSecondTypeScreen;
+export default new LevelSecondTypeScreen();

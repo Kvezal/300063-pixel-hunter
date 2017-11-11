@@ -35,12 +35,12 @@ class RulesView extends AbstractView {
   }
 
   bind(element) {
-    const buttonStartGame = element.querySelector(`.rules__button`);
+    const form = element.querySelector(`.rules__form`);
+    form.onsubmit = (evt) => this.formSubmitHandler(evt);
+
+    const buttonStartGame = form.querySelector(`.rules__button`);
+    buttonStartGame.disabled = false;
     buttonStartGame.onclick = (evt) => this.startHandler(evt);
-  }
-
-  startHandler() {
-
   }
 }
 
