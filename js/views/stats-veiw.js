@@ -1,4 +1,5 @@
 import AbstractView from './abstract-view';
+import displayHeader from '../lib/display-header';
 
 class StatsView extends AbstractView {
   constructor() {
@@ -7,14 +8,7 @@ class StatsView extends AbstractView {
 
   get template() {
     return (
-      `<header class="header">
-        <div class="header__back">
-          <button class="back">
-            <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-            <img src="img/logo_small.svg" width="101" height="44">
-          </button>
-        </div>
-      </header>
+      `<header class="header"></header>
       <div class="result">
         <h1>Победа!</h1>
         <table class="result__table">
@@ -119,8 +113,8 @@ class StatsView extends AbstractView {
   }
 
   bind(element) {
-    const backButton = element.querySelector(`.back`);
-    backButton.onclick = (evt) => this.backButtonHandler(evt);
+    this.header = element.querySelector(`.header`);
+    displayHeader(this);
   }
 }
 

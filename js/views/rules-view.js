@@ -1,4 +1,5 @@
 import AbstractView from './abstract-view';
+import displayHeader from '../lib/display-header';
 
 class RulesView extends AbstractView {
   constructor() {
@@ -7,14 +8,7 @@ class RulesView extends AbstractView {
 
   get template() {
     return (
-      `<header class="header">
-        <div class="header__back">
-          <button class="back">
-            <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-            <img src="img/logo_small.svg" width="101" height="44">
-          </button>
-        </div>
-      </header>
+      `<header class="header"></header>
       <div class="rules">
         <h1 class="rules__title">Правила</h1>
         <p class="rules__description">Угадай 10 раз для каждого изображения фото <img
@@ -35,6 +29,9 @@ class RulesView extends AbstractView {
   }
 
   bind(element) {
+    this.header = element.querySelector(`.header`);
+    displayHeader(this);
+
     const form = element.querySelector(`.rules__form`);
     form.onsubmit = (evt) => this.formSubmitHandler(evt);
 

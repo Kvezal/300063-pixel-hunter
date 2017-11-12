@@ -17,8 +17,11 @@ class Utils {
     if (clear) {
       this.clearElement(parent);
     }
-
-    parent.insertBefore(newElement, parent.firstElementChild);
+    if (parent.firstElementChild) {
+      parent.insertBefore(newElement, parent.firstElementChild);
+      return;
+    }
+    parent.appendChild(newElement);
   }
 
   static displayScreen(newElement) {

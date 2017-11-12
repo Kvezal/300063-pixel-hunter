@@ -7,6 +7,7 @@ class LevelSecondTypeScreen {
 
       ++gameModel.state.level;
       if (gameModel.isCanPlay()) {
+        gameModel.state.lives--;
         App.showGameScreen(gameModel.state);
         return;
       }

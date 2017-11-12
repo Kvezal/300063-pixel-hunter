@@ -3,6 +3,8 @@ const GameParameters = {
 };
 
 const initialState = {
+  lives: 3,
+  time: 30,
   level: 0
 };
 

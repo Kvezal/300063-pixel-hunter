@@ -1,6 +1,6 @@
-import App from '../application';
 import StatsView from '../views/stats-veiw';
 import Utils from '../lib/utils';
+import player from './player-screen';
 
 class StatsScreen {
   constructor() {
@@ -8,10 +8,7 @@ class StatsScreen {
   }
 
   init() {
-    this.view.backButtonHandler = (evt) => {
-      evt.preventDefault();
-      App.showGreetingScreen();
-    };
+    this.view.player = player.init();
 
     Utils.displayScreen(this.view.element);
   }

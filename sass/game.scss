@@ -15,6 +15,10 @@
   top: 25px;
   left: 50%;
   transform: translateX(-50%);
+
+  &--small-time {
+    animation: blink 1s infinite;
+  }
 }
 
 .game__lives {
@@ -136,4 +140,22 @@
     background-color: rgba(223, 78, 78, 0.4);
   }
 
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  49% {
+    opacity: 1;
+  }
+
+  51% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
