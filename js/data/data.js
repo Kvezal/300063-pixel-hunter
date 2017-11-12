@@ -1,5 +1,7 @@
 const GameParameters = {
-  NUMBER_QUESTIONS: 3
+  NUMBER_QUESTIONS: 3,
+  NUMBER_ANSWERS: 3,
+  AMOUNT_MILISECONDS_IN_SECONDS: 1000
 };
 
 const initialState = {
@@ -33,6 +35,7 @@ const quest = [
   },
   {
     question: `Найдите рисунок среди изображений`,
+    answer: `paint`,
     type: `third`,
     images: [
       {

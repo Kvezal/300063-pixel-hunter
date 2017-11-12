@@ -20,13 +20,13 @@ class LevelFirstTypeView extends AbstractView {
   templateOption(url, index) {
     return (
       `<div class="game__option">
-        <img src="${url}" alt="Option ${index}" width="468" height="458">
+        <img src="${url}" alt="Option ${index + 1}" width="468" height="458">
         <label class="game__answer game__answer--photo">
-          <input name="question${index}" type="radio" value="photo">
+          <input name="question${index + 1}" type="radio" value="photo">
           <span>Фото</span>
         </label>
         <label class="game__answer game__answer--paint">
-          <input name="question${index}" type="radio" value="paint">
+          <input name="question${index + 1}" type="radio" value="paint">
           <span>Рисунок</span>
         </label>
       </div>`

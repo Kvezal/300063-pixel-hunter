@@ -11,7 +11,9 @@ class RulesScreen {
 
   init() {
     this.view.startHandler = () => {
-      App.showGameScreen(Object.assign({}, initialState));
+      const state = Object.assign({}, initialState);
+      state.answers = [];
+      App.showGameScreen(state);
     };
 
     this.view.formSubmitHandler = (evt) => {

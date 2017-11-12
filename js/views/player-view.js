@@ -30,10 +30,6 @@ class PlayerView extends AbstractView {
     return `<h1 class="game__timer">NN</h1>`;
   }
 
-  get templateOneLive() {
-    return `<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`;
-  }
-
   get templateLives() {
     if (!(this.view instanceof GameView)) {
       return ``;
@@ -46,6 +42,7 @@ class PlayerView extends AbstractView {
     for (let j = 0; j < this.view.model.state.lives; j++) {
       lives.push(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`);
     }
+
     return `<div class="game__lives">${lives.join(` `)}</div>`;
   }
 
@@ -58,8 +55,9 @@ class PlayerView extends AbstractView {
 
   tick() {
     this.displayTimer();
-    window.setTimeout(() => {
+    this.view.model.state.timerId = window.setTimeout(() => {
       --this.time;
+
       if (this.time > 0) {
         this.tick();
       }

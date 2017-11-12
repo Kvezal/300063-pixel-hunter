@@ -11,11 +11,19 @@ class GameModel {
   }
 
   isCanPlay() {
-    return this.state.level < GameParameters.NUMBER_QUESTIONS;
+    return (
+      (this.state.level < GameParameters.NUMBER_QUESTIONS) &&
+      (this.state.answers.length < GameParameters.NUMBER_ANSWERS)
+    );
   }
 
   get currentLevel() {
     return Utils.getLevel(this.state.level, this.data);
+  }
+
+  addAnswer(answer, time) {
+    time = (new Date() - time) / GameParameters.AMOUNT_MILISECONDS_IN_SECONDS;
+    this.state.answers.push({answer, time});
   }
 }
 

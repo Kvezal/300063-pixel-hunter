@@ -30,7 +30,7 @@ class LevelSecondTypeView extends AbstractView {
   bind(element) {
     const radioButtons = element.querySelectorAll(`input[type='radio']`);
     [...radioButtons].forEach((radio) => {
-      radio.onclick = (evt) => this.answerHandler(evt);
+      radio.onclick = (evt) => this.answerHandler(evt, [...radioButtons]);
     });
   }
 }

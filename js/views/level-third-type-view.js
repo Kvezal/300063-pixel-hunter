@@ -17,10 +17,10 @@ class LevelThirdTypeView extends AbstractView {
     );
   }
 
-  templateOption(url) {
+  templateOption(url, index) {
     return (
       `<div class="game__option">
-        <img src="${url}" alt="Option 1" width="304" height="455">
+        <img src="${url}" alt="Option ${index + 1}" width="304" height="455">
       </div>`
     );
   }
