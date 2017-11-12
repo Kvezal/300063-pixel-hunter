@@ -13,7 +13,8 @@ class GameModel {
   isCanPlay() {
     return (
       (this.state.level < GameParameters.NUMBER_QUESTIONS) &&
-      (this.state.answers.length < GameParameters.NUMBER_ANSWERS)
+      (this.state.answers.length < GameParameters.NUMBER_ANSWERS) &&
+      (this.state.lives > GameParameters.MIN_COUNT_LIVES)
     );
   }
 

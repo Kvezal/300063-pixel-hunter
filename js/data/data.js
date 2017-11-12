@@ -1,13 +1,14 @@
-const GameParameters = {
-  NUMBER_QUESTIONS: 3,
-  NUMBER_ANSWERS: 3,
-  AMOUNT_MILISECONDS_IN_SECONDS: 1000
-};
-
 const initialState = {
   lives: 3,
   time: 30,
   level: 0
+};
+
+const GameParameters = {
+  MIN_COUNT_LIVES: 0,
+  NUMBER_QUESTIONS: 3,
+  NUMBER_ANSWERS: 3,
+  AMOUNT_MILISECONDS_IN_SECONDS: 1000
 };
 
 const quest = [
