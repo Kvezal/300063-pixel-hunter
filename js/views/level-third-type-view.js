@@ -5,23 +5,32 @@ class LevelThirdTypeView extends AbstractView {
     super();
 
     this.answerHandler = gameView.thirdLevelType.answerHandler;
+    this.currentLevel = gameView.model.data[gameView.model.state.level];
   }
 
   get template() {
     return (
       `<p class="game__task">Найдите рисунок среди изображений</p>
       <form class="game__content  game__content--triple">
-        <div class="game__option">
-          <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-        </div>
-        <div class="game__option  game__option--selected">
-          <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-        </div>
-        <div class="game__option">
-          <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-        </div>
+        ${this.templateGameOptions}
       </form>`
     );
+  }
+
+  templateOption(url) {
+    return (
+      `<div class="game__option">
+        <img src="${url}" alt="Option 1" width="304" height="455">
+      </div>`
+    );
+  }
+
+  get templateGameOptions() {
+    const options = [];
+    this.currentLevel.images.forEach((item, index) => {
+      options.push(this.templateOption(item.url, index));
+    });
+    return options.join(` `);
   }
 
   bind(element) {
