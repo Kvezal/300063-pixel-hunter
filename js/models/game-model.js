@@ -1,5 +1,10 @@
 import Utils from '../lib/utils';
-import {GameParameters} from '../data/data';
+import {initialState, GameParameters} from '../data/data';
+
+const timeAnswers = {
+  FAST: 10,
+  SLOW: 20
+};
 
 class GameModel {
   constructor(data) {
@@ -8,6 +13,11 @@ class GameModel {
 
   updateState(newState) {
     this.state = newState;
+    this.resetTimer();
+  }
+
+  resetTimer() {
+    this.state.time = initialState.time;
   }
 
   isCanPlay() {
@@ -22,9 +32,26 @@ class GameModel {
     return Utils.getLevel(this.state.level, this.data);
   }
 
+  static getTypeAnswer(answer, time) {
+    if (!answer) {
+      return `wrong`;
+    }
+    if (time < timeAnswers.FAST) {
+      return `fast`;
+    }
+    if (time >= timeAnswers.FAST && time < timeAnswers.SLOW) {
+      return `correct`;
+    }
+    if (time >= timeAnswers.SLOW && time < initialState.time) {
+      return `slow`;
+    }
+    return `wrong`;
+  }
+
   addAnswer(answer, time) {
     time = (new Date() - time) / GameParameters.AMOUNT_MILISECONDS_IN_SECONDS;
-    this.state.answers.push({answer, time});
+    const type = GameModel.getTypeAnswer(answer, time);
+    this.state.answers.push(type);
   }
 }
 

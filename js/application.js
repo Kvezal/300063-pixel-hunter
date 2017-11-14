@@ -1,8 +1,8 @@
 import greetingScreen from './screens/greeting-screen';
 import rulesScreen from './screens/rules-screen';
 import GameScreen from './screens/game-screen';
-import statsScreen from './screens/stats-screen';
-import {quest, initialState} from './data/data';
+import resultScreen from './screens/result-screen';
+import {quest} from './data/data';
 
 const ContrallerId = {
   GREETING: ``,
@@ -15,7 +15,7 @@ const routes = {
   [ContrallerId.GREETING]: greetingScreen,
   [ContrallerId.RULES]: rulesScreen,
   [ContrallerId.GAME]: new GameScreen(quest),
-  [ContrallerId.STATS]: statsScreen
+  [ContrallerId.RESULT]: resultScreen
 };
 
 class Application {
@@ -31,8 +31,8 @@ class Application {
     routes[ContrallerId.GAME].init(state);
   }
 
-  static showStatsScreen() {
-    routes[ContrallerId.STATS].init();
+  static showStatsScreen(state) {
+    routes[ContrallerId.RESULT].init(state);
   }
 }
 Application.showGreetingScreen();

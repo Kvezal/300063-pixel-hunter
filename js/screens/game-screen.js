@@ -1,4 +1,4 @@
-// import App from '../application';
+import App from '../application';
 import GameModel from '../models/game-model';
 import GameView from '../views/game-view';
 import Utils from '../lib/utils';
@@ -15,11 +15,26 @@ class GameScreen {
   init(state) {
     this.model.updateState(state);
     this.view = new GameView(this.model);
+    const time = new Date();
 
-    this.view.player = player.init();
-    this.view.firstLevelType = firstLevelType.init(this.model);
-    this.view.secondLevelType = secondLevelType.init(this.model);
-    this.view.thirdLevelType = thirdLevelType.init(this.model);
+    this.view.showNextScreen = (answer) => {
+      if (!answer) {
+        --state.lives;
+      }
+      this.model.addAnswer(answer, time);
+
+      ++state.level;
+      if (this.model.isCanPlay()) {
+        App.showGameScreen(state);
+        return;
+      }
+      App.showStatsScreen(state);
+    };
+
+    this.view.player = player.init(this.model);
+    this.view.firstLevelType = firstLevelType.init(this.view);
+    this.view.secondLevelType = secondLevelType.init(this.view);
+    this.view.thirdLevelType = thirdLevelType.init(this.view);
 
     Utils.displayScreen(this.view.element);
   }

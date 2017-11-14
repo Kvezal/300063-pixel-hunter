@@ -6,6 +6,7 @@ const initialState = {
 
 const GameParameters = {
   MIN_COUNT_LIVES: 0,
+  MIN_COUNT_TIME: 0,
   NUMBER_QUESTIONS: 3,
   NUMBER_ANSWERS: 3,
   AMOUNT_MILISECONDS_IN_SECONDS: 1000

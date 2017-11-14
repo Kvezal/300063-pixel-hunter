@@ -1,5 +1,5 @@
 import AbstractView from './abstract-view';
-import {initialState} from '../data/data';
+import {initialState, GameParameters} from '../data/data';
 import GameView from './game-view';
 
 class PlayerView extends AbstractView {
@@ -47,21 +47,24 @@ class PlayerView extends AbstractView {
   }
 
   displayTimer() {
-    if (this.time <= 5) {
+    if (this.state.time <= 5) {
       this.timer.classList.add(`game__timer--small-time`);
     }
-    this.timer.textContent = this.time;
+    this.timer.textContent = this.state.time;
   }
 
   tick() {
     this.displayTimer();
-    this.view.model.state.timerId = window.setTimeout(() => {
-      --this.time;
+    this.state.timerId = window.setTimeout(() => {
+      --this.state.time;
 
-      if (this.time > 0) {
+      if (this.state.time > GameParameters.MIN_COUNT_TIME) {
         this.tick();
+        return;
       }
-    }, 1000);
+      this.view.player.tick();
+
+    }, GameParameters.AMOUNT_MILISECONDS_IN_SECONDS);
   }
 
   bind(element) {
@@ -71,7 +74,7 @@ class PlayerView extends AbstractView {
     const timer = element.querySelector(`.game__timer`);
     if (timer) {
       this.timer = timer;
-      this.time = this.view.model.state.time;
+      this.state = this.view.model.state;
       this.tick();
     }
   }
