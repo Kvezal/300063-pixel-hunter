@@ -11,6 +11,13 @@ const GameParameters = {
   AMOUNT_MILISECONDS_IN_SECONDS: 1000
 };
 
+const amountPoints = {
+  CORRECT_ANSWER: 100,
+  BONUS_FOR_FAST_ANSWER: 50,
+  BONUS_FOR_SLOW_ANSWER: -50,
+  BONUS_FOR_LIVES_LEFT: 50
+};
+
 const quest = [
   {
     question: `Угадайте для каждого изображения фото или рисунок?`,
@@ -74,7 +81,7 @@ const quest = [
   }
 ];
 
-export {quest, GameParameters, initialState};
+export {quest, GameParameters, initialState, amountPoints};
 
 /*const images = {
   paintings: [

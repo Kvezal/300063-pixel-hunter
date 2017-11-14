@@ -2,13 +2,7 @@ import AbstractView from './abstract-view';
 import displayHeader from '../lib/display-header';
 import Utils from '../lib/utils';
 import {GameParameters} from '../data/data';
-
-const amountPoints = {
-  CORRECT_ANSWER: 100,
-  BONUS_FOR_FAST_ANSWER: 50,
-  BONUS_FOR_SLOW_ANSWER: -50,
-  BONUS_FOR_LIVES_LEFT: 50
-};
+import getCurrentResult from '../lib/get-current-result';
 
 class ResultView extends AbstractView {
   constructor() {
@@ -55,32 +49,9 @@ class ResultView extends AbstractView {
       );
     }
 
-    const currentResult = Utils.getCurrentResult(state);
-    const bonusesAndPenalties = [
-      {
-        name: `Бонус за скорость`,
-        type: `fast`,
-        pointsPerUnit: amountPoints.BONUS_FOR_FAST_ANSWER,
-        amount: currentResult.amountFastAnswers,
-        points: Utils.countOfPoints(currentResult.amountFastAnswers, amountPoints.BONUS_FOR_FAST_ANSWER)
-      },
-      {
-        name: `Бонус за жизни`,
-        type: `alive`,
-        pointsPerUnit: amountPoints.BONUS_FOR_LIVES_LEFT,
-        amount: currentResult.amountLivesLeft,
-        points: Utils.countOfPoints(currentResult.amountLivesLeft, amountPoints.BONUS_FOR_LIVES_LEFT)
-      },
-      {
-        name: `Штраф за медлительность`,
-        type: `slow`,
-        pointsPerUnit: -amountPoints.BONUS_FOR_SLOW_ANSWER,
-        amount: currentResult.amountSlowAnswers,
-        points: Utils.countOfPoints(currentResult.amountSlowAnswers, amountPoints.BONUS_FOR_SLOW_ANSWER)
-      }
-    ];
+    const currentResult = getCurrentResult(state);
 
-    const rows = bonusesAndPenalties.map((item) => this.getTemplateResultRow(item));
+    const rows = currentResult.bonusesAndPenalties.map((item) => this.getTemplateResultRow(item));
 
     return (
       `<table class="result__table">
@@ -89,9 +60,8 @@ class ResultView extends AbstractView {
           <td colspan="2">
             ${Utils.getStats(state.answers)}
           </td>
-          <td class="result__points">×&nbsp;${amountPoints.CORRECT_ANSWER}</td>
-          <td class="result__total">${Utils.countOfPoints(currentResult.amountCorrectAnswers,
-          amountPoints.CORRECT_ANSWER)}</td>
+          <td class="result__points">×&nbsp;${currentResult.correctAnswers.pointsPerUnit}</td>
+          <td class="result__total">${currentResult.correctAnswers.points}</td>
         </tr>
         ${rows.join(` `)}
         <tr>
@@ -102,10 +72,13 @@ class ResultView extends AbstractView {
   }
 
   getTemplateResultRow(item) {
+    if (!item.amount) {
+      return ``;
+    }
     return (
       `<tr>
         <td></td>
-        <td class="result__extra">${item.name}:</td>
+        <td class="result__extra">${item.title}:</td>
         <td class="result__extra">${item.amount}&nbsp;<span class="stats__result stats__result--${item.type}"></span></td>
         <td class="result__points">×&nbsp;${item.pointsPerUnit}</td>
         <td class="result__total">${item.points}</td>

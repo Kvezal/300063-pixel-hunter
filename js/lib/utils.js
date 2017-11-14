@@ -1,4 +1,4 @@
-import {GameParameters} from '../data/data';
+import {GameParameters, amountPoints} from '../data/data';
 
 const main = document.querySelector(`.central`);
 
@@ -46,18 +46,6 @@ class Utils {
     }
     stats.push(`</ul>`);
     return stats.join(` `);
-  }
-
-  static getCurrentResult(state) {
-    const currentResult = {
-      amountCorrectAnswers: 9,
-      amountFastAnswers: 1,
-      amountSlowAnswers: 2,
-      amountLivesLeft: 1,
-      totalPoints: 950
-    };
-
-    return currentResult;
   }
 
   static countOfPoints(amount, points) {
