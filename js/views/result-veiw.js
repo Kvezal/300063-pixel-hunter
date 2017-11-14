@@ -1,6 +1,14 @@
 import AbstractView from './abstract-view';
 import displayHeader from '../lib/display-header';
 import Utils from '../lib/utils';
+import {GameParameters} from '../data/data';
+
+const amountPoints = {
+  CORRECT_ANSWER: 100,
+  BONUS_FOR_FAST_ANSWER: 50,
+  BONUS_FOR_SLOW_ANSWER: -50,
+  BONUS_FOR_LIVES_LEFT: 50
+};
 
 class ResultView extends AbstractView {
   constructor() {
@@ -8,112 +16,100 @@ class ResultView extends AbstractView {
   }
 
   get template() {
-    this.getTemplateResultTable();
-
     return (
       `<header class="header"></header>
       <div class="result">
-        <h1>Победа!</h1>
-        <table class="result__table">
-          <tr>
-            <td class="result__number">1.</td>
-            <td colspan="2">
-              ${Utils.getStats(this.state.answers)}
-            </td>
-            <td class="result__points">×&nbsp;100</td>
-            <td class="result__total">900</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="result__extra">Бонус за скорость:</td>
-            <td class="result__extra">1&nbsp;<span class="stats__result stats__result--fast"></span></td>
-            <td class="result__points">×&nbsp;50</td>
-            <td class="result__total">50</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="result__extra">Бонус за жизни:</td>
-            <td class="result__extra">2&nbsp;<span class="stats__result stats__result--alive"></span></td>
-            <td class="result__points">×&nbsp;50</td>
-            <td class="result__total">100</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="result__extra">Штраф за медлительность:</td>
-            <td class="result__extra">2&nbsp;<span class="stats__result stats__result--slow"></span></td>
-            <td class="result__points">×&nbsp;50</td>
-            <td class="result__total">-100</td>
-          </tr>
-          <tr>
-            <td colspan="5" class="result__total  result__total--final">950</td>
-          </tr>
-        </table>
-
-
-
-        <table class="result__table">
-          <tr>
-            <td class="result__number">2.</td>
-            <td>
-              <ul class="stats">
-                <li class="stats__result stats__result--wrong"></li>
-                <li class="stats__result stats__result--slow"></li>
-                <li class="stats__result stats__result--fast"></li>
-                <li class="stats__result stats__result--correct"></li>
-                <li class="stats__result stats__result--wrong"></li>
-                <li class="stats__result stats__result--unknown"></li>
-                <li class="stats__result stats__result--slow"></li>
-                <li class="stats__result stats__result--wrong"></li>
-                <li class="stats__result stats__result--fast"></li>
-                <li class="stats__result stats__result--wrong"></li>
-              </ul>
-            </td>
-            <td class="result__total"></td>
-            <td class="result__total  result__total--final">fail</td>
-          </tr>
-        </table>
+        ${this.templateHeader(this.state)}
+        ${[this.state].reverse().map((item, index) => this.templateResultTable(item, index + 1)).join(` `)}
       </div>`
     );
   }
 
-  getTemplateResultTable() {
-    const currentResult = Utils.getCurrentResult(this.state);
-    console.log(currentResult)
-    console.log (
+  isWin(state) {
+    return (
+      state.answers.length === GameParameters.NUMBER_ANSWERS &&
+      state.lives > GameParameters.MIN_COUNT_LIVES
+    );
+  }
+
+  templateHeader(state) {
+    if (this.isWin(state)) {
+      return `<h1>Победа!</h1>`;
+    }
+    return `<h1>Поражение!</h1>`;
+  }
+
+  templateResultTable(state, index) {
+    if (!this.isWin(state)) {
+      return (
+        `<table class="result__table">
+          <tr>
+            <td class="result__number">${index}.</td>
+            <td>
+              ${Utils.getStats(state.answers)}
+            </td>
+            <td class="result__total"></td>
+            <td class="result__total  result__total--final">fail</td>
+          </tr>
+        </table>`
+      );
+    }
+
+    const currentResult = Utils.getCurrentResult(state);
+    const bonusesAndPenalties = [
+      {
+        name: `Бонус за скорость`,
+        type: `fast`,
+        pointsPerUnit: amountPoints.BONUS_FOR_FAST_ANSWER,
+        amount: currentResult.amountFastAnswers,
+        points: Utils.countOfPoints(currentResult.amountFastAnswers, amountPoints.BONUS_FOR_FAST_ANSWER)
+      },
+      {
+        name: `Бонус за жизни`,
+        type: `alive`,
+        pointsPerUnit: amountPoints.BONUS_FOR_LIVES_LEFT,
+        amount: currentResult.amountLivesLeft,
+        points: Utils.countOfPoints(currentResult.amountLivesLeft, amountPoints.BONUS_FOR_LIVES_LEFT)
+      },
+      {
+        name: `Штраф за медлительность`,
+        type: `slow`,
+        pointsPerUnit: -amountPoints.BONUS_FOR_SLOW_ANSWER,
+        amount: currentResult.amountSlowAnswers,
+        points: Utils.countOfPoints(currentResult.amountSlowAnswers, amountPoints.BONUS_FOR_SLOW_ANSWER)
+      }
+    ];
+
+    const rows = bonusesAndPenalties.map((item) => this.getTemplateResultRow(item));
+
+    return (
       `<table class="result__table">
         <tr>
-          <td class="result__number">1.</td>
+          <td class="result__number">${index}.</td>
           <td colspan="2">
-            ${Utils.getStats(this.state.answers)}
+            ${Utils.getStats(state.answers)}
           </td>
-          <td class="result__points">×&nbsp;100</td>
-          <td class="result__total">${currentResult.correctAnswers.points}</td>
+          <td class="result__points">×&nbsp;${amountPoints.CORRECT_ANSWER}</td>
+          <td class="result__total">${Utils.countOfPoints(currentResult.amountCorrectAnswers,
+          amountPoints.CORRECT_ANSWER)}</td>
         </tr>
+        ${rows.join(` `)}
         <tr>
-          <td></td>
-          <td class="result__extra">Бонус за скорость:</td>
-          <td class="result__extra">${currentResult.correctAnswers.amount}&nbsp;<span class="stats__result stats__result--fast"></span></td>
-          <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${currentResult.correctAnswers.points}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td class="result__extra">Бонус за жизни:</td>
-          <td class="result__extra">${currentResult.livesLeft.amount}&nbsp;<span class="stats__result stats__result--alive"></span></td>
-          <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${currentResult.livesLeft.points}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td class="result__extra">Штраф за медлительность:</td>
-          <td class="result__extra">${currentResult.slowAnswers.amount}&nbsp;<span class="stats__result stats__result--slow"></span></td>
-          <td class="result__points">×&nbsp;50</td>
-          <td class="result__total">${currentResult.slowAnswers.points}</td>
-        </tr>
-        <tr>
-          <td colspan="5" class="result__total  result__total--final">950</td>
+          <td colspan="5" class="result__total  result__total--final">${currentResult.totalPoints}</td>
         </tr>
       </table>`
+    );
+  }
+
+  getTemplateResultRow(item) {
+    return (
+      `<tr>
+        <td></td>
+        <td class="result__extra">${item.name}:</td>
+        <td class="result__extra">${item.amount}&nbsp;<span class="stats__result stats__result--${item.type}"></span></td>
+        <td class="result__points">×&nbsp;${item.pointsPerUnit}</td>
+        <td class="result__total">${item.points}</td>
+      </tr>`
     );
   }
 

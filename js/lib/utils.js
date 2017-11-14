@@ -50,34 +50,18 @@ class Utils {
 
   static getCurrentResult(state) {
     const currentResult = {
-      correctAnswers: {
-        amount: 9,
-        points: 900
-      },
-      fastAnswers: {
-        amount: 1,
-        points: 50
-      },
-      slowAnswers: {
-        amount: 2,
-        points: -100
-      },
-      livesLeft: {
-        amount: 1,
-        points: 1
-      }
-    };
-
-    /*const currentResult = {
       amountCorrectAnswers: 9,
       amountFastAnswers: 1,
       amountSlowAnswers: 2,
       amountLivesLeft: 1,
       totalPoints: 950
-      }
-    };*/
+    };
 
     return currentResult;
+  }
+
+  static countOfPoints(amount, points) {
+    return amount * points;
   }
 }
 

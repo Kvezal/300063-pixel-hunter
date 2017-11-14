@@ -7,8 +7,7 @@ const initialState = {
 const GameParameters = {
   MIN_COUNT_LIVES: 0,
   MIN_COUNT_TIME: 0,
-  NUMBER_QUESTIONS: 3,
-  NUMBER_ANSWERS: 3,
+  NUMBER_ANSWERS: 4,
   AMOUNT_MILISECONDS_IN_SECONDS: 1000
 };
 
@@ -34,6 +33,25 @@ const quest = [
       url: `https://i.imgur.com/DiHM5Zb.jpg`,
       type: `photo`
     }
+  },
+  {
+    question: `Найдите рисунок среди изображений`,
+    answer: `paint`,
+    type: `third`,
+    images: [
+      {
+        url: `https://k32.kn3.net/5C7060EC5.jpg`,
+        type: `paint`
+      },
+      {
+        url: `http://i.imgur.com/DKR1HtB.jpg`,
+        type: `photo`
+      },
+      {
+        url: `https://i.imgur.com/DiHM5Zb.jpg`,
+        type: `photo`
+      }
+    ]
   },
   {
     question: `Найдите рисунок среди изображений`,
