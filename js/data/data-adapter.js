@@ -12,8 +12,6 @@ const getParametersOfImages = (level) => {
 
     return {
       url: item.image.url,
-      width: item.image.width,
-      height: item.image.height,
       type: item.type
     };
   });

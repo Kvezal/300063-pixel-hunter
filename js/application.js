@@ -12,14 +12,13 @@ const ContrallerId = {
 };
 
 class Application {
-  static init() {
+  static init(images) {
     Application.routes = {
       [ContrallerId.GREETING]: greetingScreen,
       [ContrallerId.RULES]: rulesScreen,
-      [ContrallerId.GAME]: new GameScreen(quest),
+      [ContrallerId.GAME]: new GameScreen(quest, images),
       [ContrallerId.RESULT]: resultScreen
     };
-    console.log(quest)
     Application.showGreetingScreen();
   }
 
@@ -36,7 +35,9 @@ class Application {
   }
 
   static showStatsScreen(state) {
-    this.routes[ContrallerId.RESULT].init(state);
+    Loader.saveResult(state).
+        then(() => Loader.loadResult()).
+        then(this.routes[ContrallerId.RESULT].init);
   }
 }
 

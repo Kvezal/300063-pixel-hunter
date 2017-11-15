@@ -11,12 +11,6 @@ const TypeOfLevels = {
   THIRD: `third`
 };
 
-/*const TypeOfLevels = {
-  FIRST: `two-of-two`,
-  SECOND: `tinder-like`,
-  THIRD: `one-of-three`
-};*/
-
 const routesLevel = {
   [TypeOfLevels.FIRST]: LevelFirstTypeView,
   [TypeOfLevels.SECOND]: LevelSecondTypeView,

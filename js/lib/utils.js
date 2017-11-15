@@ -51,6 +51,34 @@ class Utils {
   static countOfPoints(amount, points) {
     return amount * points;
   }
+
+  static resize(image, defaultParameters) {
+    const ratioImage = image.width / image.height;
+
+    let newWidth = defaultParameters.WIDTH;
+    let newHeight = newWidth / ratioImage;
+    if (newHeight <= defaultParameters.HEIGHT) {
+      return {
+        width: newWidth,
+        height: newHeight
+      };
+    }
+
+    newHeight = defaultParameters.HEIGHT;
+    newWidth = newHeight * ratioImage;
+    return {
+      width: newWidth,
+      height: newHeight
+    };
+  }
+
+  static getImageParameters(buffer, url) {
+    const imageBuffer = buffer.find((image) => image.src === url);
+    return {
+      width: imageBuffer.width,
+      height: imageBuffer.height
+    };
+  }
 }
 
 export default Utils;

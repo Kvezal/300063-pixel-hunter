@@ -1,10 +1,17 @@
 import AbstractView from './abstract-view';
+import Utils from '../lib/utils';
+
+const IMAGE_PARAMETERS = {
+  WIDTH: 304,
+  HEIGHT: 455
+};
 
 class LevelThirdTypeView extends AbstractView {
   constructor(gameView) {
     super();
 
     this.answerHandler = gameView.thirdLevelType.answerHandler;
+    this.imagesBuffer = gameView.model.imagesBuffer;
     this.currentLevel = gameView.model.data[gameView.model.state.level];
   }
 
@@ -18,19 +25,20 @@ class LevelThirdTypeView extends AbstractView {
   }
 
   templateOption(url, index) {
+    const imageParameters = Utils.getImageParameters(this.imagesBuffer, url);
+    const newImageParameters = Utils.resize(imageParameters, IMAGE_PARAMETERS);
+
     return (
       `<div class="game__option">
-        <img src="${url}" alt="Option ${index + 1}" width="304" height="455">
+        <img src="${url}" alt="Option ${index + 1}" width="${newImageParameters.width}" height="${newImageParameters.height}">
       </div>`
     );
   }
 
   get templateGameOptions() {
-    const options = [];
-    this.currentLevel.images.forEach((item, index) => {
-      options.push(this.templateOption(item.url, index));
-    });
-    return options.join(` `);
+    return this.currentLevel.images.map((item, index) => {
+      return this.templateOption(item.url, index);
+    }).join(` `);
   }
 
   bind(element) {

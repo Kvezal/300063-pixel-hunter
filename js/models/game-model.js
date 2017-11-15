@@ -7,8 +7,9 @@ const timeAnswers = {
 };
 
 class GameModel {
-  constructor(data) {
+  constructor(data, imagesBuffer) {
     this.data = data;
+    this.imagesBuffer = imagesBuffer;
   }
 
   updateState(newState) {

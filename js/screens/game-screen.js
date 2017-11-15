@@ -8,8 +8,8 @@ import secondLevelType from './level-second-type-screen';
 import thirdLevelType from './level-third-type-screen';
 
 class GameScreen {
-  constructor(gameData) {
-    this.model = new GameModel(gameData);
+  constructor(gameData, imagesBuffer) {
+    this.model = new GameModel(gameData, imagesBuffer);
   }
 
   init(state) {

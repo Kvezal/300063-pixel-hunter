@@ -5,16 +5,17 @@ import {GameParameters} from '../data/data';
 import getCurrentResult from '../lib/get-current-result';
 
 class ResultView extends AbstractView {
-  constructor() {
+  constructor(data) {
     super();
+    this.data = data.reverse();
   }
 
   get template() {
     return (
       `<header class="header"></header>
       <div class="result">
-        ${this.templateHeader(this.state)}
-        ${[this.state].reverse().map((item, index) => this.templateResultTable(item, index + 1)).join(` `)}
+        ${this.templateHeader(this.data[0])}
+        ${this.data.map((item, index) => this.templateResultTable(item, index + 1)).join(` `)}
       </div>`
     );
   }

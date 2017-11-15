@@ -4,10 +4,8 @@ import player from './player-screen';
 
 class ResultScreen {
   init(state) {
-    const view = new ResultView();
-
+    const view = new ResultView(state);
     view.player = player.init();
-    view.state = state;
 
     Utils.displayScreen(view.element);
   }
