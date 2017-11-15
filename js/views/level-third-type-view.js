@@ -10,7 +10,7 @@ class LevelThirdTypeView extends AbstractView {
 
   get template() {
     return (
-      `<p class="game__task">Найдите рисунок среди изображений</p>
+      `<p class="game__task">${this.currentLevel.question}</p>
       <form class="game__content  game__content--triple">
         ${this.templateGameOptions}
       </form>`

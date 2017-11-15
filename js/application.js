@@ -2,7 +2,7 @@ import greetingScreen from './screens/greeting-screen';
 import rulesScreen from './screens/rules-screen';
 import GameScreen from './screens/game-screen';
 import resultScreen from './screens/result-screen';
-import {quest} from './data/data';
+import Loader from './loader';
 
 const ContrallerId = {
   GREETING: ``,
@@ -11,30 +11,44 @@ const ContrallerId = {
   STATS: `stats`
 };
 
-const routes = {
-  [ContrallerId.GREETING]: greetingScreen,
-  [ContrallerId.RULES]: rulesScreen,
-  [ContrallerId.GAME]: new GameScreen(quest),
-  [ContrallerId.RESULT]: resultScreen
-};
-
 class Application {
+  static init() {
+    Application.routes = {
+      [ContrallerId.GREETING]: greetingScreen,
+      [ContrallerId.RULES]: rulesScreen,
+      [ContrallerId.GAME]: new GameScreen(quest),
+      [ContrallerId.RESULT]: resultScreen
+    };
+    console.log(quest)
+    Application.showGreetingScreen();
+  }
+
   static showGreetingScreen() {
-    routes[ContrallerId.GREETING].init();
+    this.routes[ContrallerId.GREETING].init();
   }
 
   static showRulesScreen() {
-    routes[ContrallerId.RULES].init();
+    this.routes[ContrallerId.RULES].init();
   }
 
   static showGameScreen(state) {
-    routes[ContrallerId.GAME].init(state);
+    this.routes[ContrallerId.GAME].init(state);
   }
 
   static showStatsScreen(state) {
-    routes[ContrallerId.RESULT].init(state);
+    this.routes[ContrallerId.RESULT].init(state);
   }
 }
-Application.showGreetingScreen();
+
+let quest = {};
+
+const loadFile = (data) => {
+  quest = data;
+  return Loader.loadFile(data);
+};
+
+Loader.loadData()
+    .then(loadFile)
+    .then(Application.init);
 
 export default Application;
