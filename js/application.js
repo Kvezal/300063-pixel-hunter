@@ -4,6 +4,7 @@ import GameScreen from './screens/game-screen';
 import resultScreen from './screens/result-screen';
 import Loader from './loader';
 import error from './screens/error-screen';
+import splash from './screens/splash-screen';
 
 const ContrallerId = {
   GREETING: ``,
@@ -36,6 +37,7 @@ class Application {
   }
 
   static showStatsScreen(state) {
+    splash.start();
     Loader.saveResult(state, state.name).
         then(() => Loader.loadResult(state.name)).
         then(this.routes[ContrallerId.RESULT].init);
