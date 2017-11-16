@@ -6,9 +6,20 @@
   width: 780px;
   height: 740px;
 
-  transition: background-image 1s ease-in-out;
-  background: url("../img/egg_distort.png") no-repeat center;
+  transition-property: background-image;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-out;
+  background-image: url("../img/egg_big.png");
+  background-repeat:  no-repeat;
+  background-position: center;
   background-size: contain;
+
+  & * {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 2s;
+    transition-timing-function: ease-in-out;
+  }
 }
 
 .greeting__asterisk {

@@ -3,6 +3,7 @@ import rulesScreen from './screens/rules-screen';
 import GameScreen from './screens/game-screen';
 import resultScreen from './screens/result-screen';
 import Loader from './loader';
+import error from './screens/error-screen';
 
 const ContrallerId = {
   GREETING: ``,
@@ -35,8 +36,8 @@ class Application {
   }
 
   static showStatsScreen(state) {
-    Loader.saveResult(state).
-        then(() => Loader.loadResult()).
+    Loader.saveResult(state, state.name).
+        then(() => Loader.loadResult(state.name)).
         then(this.routes[ContrallerId.RESULT].init);
   }
 }
@@ -50,6 +51,7 @@ const loadFile = (data) => {
 
 Loader.loadData()
     .then(loadFile)
-    .then(Application.init);
+    .then(Application.init)
+    .catch(error.show);
 
 export default Application;

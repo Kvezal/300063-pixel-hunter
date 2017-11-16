@@ -6,6 +6,14 @@
   position: relative;
   max-width: 1000px;
   margin: 0 auto;
+
+  &--blur {
+    background-image: url(../img/egg_distort.png);
+
+    & * {
+      opacity: 1;
+    }
+  }
 }
 
 .central__content {

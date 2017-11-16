@@ -1,6 +1,6 @@
-@import "central";
 @import "intro";
 @import "greeting";
+@import "central";
 @import "rules";
 @import "header";
 @import "social";
@@ -10,6 +10,7 @@
 @import "fonts";
 @import "stats";
 @import "result";
+@import "error";
 
 html {
   min-height: 100%;

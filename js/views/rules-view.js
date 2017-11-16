@@ -21,7 +21,7 @@ class RulesView extends AbstractView {
           Готовы?
         </p>
         <form class="rules__form">
-          <input class="rules__input" type="text" placeholder="Ваше Имя">
+          <input class="rules__input" type="text" placeholder="Ваше Имя" required>
           <button class="rules__button  continue" type="submit" disabled>Go!</button>
         </form>
       </div>`
@@ -35,9 +35,8 @@ class RulesView extends AbstractView {
     const form = element.querySelector(`.rules__form`);
     form.onsubmit = (evt) => this.formSubmitHandler(evt);
 
-    const buttonStartGame = form.querySelector(`.rules__button`);
-    buttonStartGame.disabled = false;
-    buttonStartGame.onclick = (evt) => this.startHandler(evt);
+    const input = element.querySelector(`.rules__input`);
+    input.oninput = (evt) => this.ckeckedInput(evt);
   }
 }
 
