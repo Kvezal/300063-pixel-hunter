@@ -1,8 +1,6 @@
 class LevelFirstTypeScreen {
   init(gameView) {
     this.gameModel = gameView.model;
-    this.state = this.gameModel.state;
-
     this.currentLevel = this.gameModel.currentLevel;
 
     this.answerHandler = (evt, form) => {
@@ -28,8 +26,6 @@ class LevelFirstTypeScreen {
   }
 
   getAnswer(gameOptions) {
-    window.clearTimeout(this.state.timerId);
-
     return [...gameOptions].every((option, index) => {
       const imageType = this.currentLevel.images[index].type;
       const groupRadios = option.querySelectorAll(`input[type='radio']`);

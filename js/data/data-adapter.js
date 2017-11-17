@@ -9,7 +9,6 @@ const getParametersOfImages = (level) => {
     if (item.type === `painting`) {
       item.type = `paint`;
     }
-
     return {
       url: item.image.url,
       type: item.type
@@ -18,7 +17,6 @@ const getParametersOfImages = (level) => {
 };
 
 const adaptFirstLevelType = (level) => {
-
   return {
     question: level.question,
     type: `first`,
@@ -54,7 +52,6 @@ const adaptThirdLevelType = (level) => {
   if (amountPaint === 2) {
     answer = `photo`;
   }
-
   return {
     question: level.question,
     answer,

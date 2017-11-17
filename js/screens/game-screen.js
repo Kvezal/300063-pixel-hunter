@@ -18,6 +18,8 @@ class GameScreen {
     const time = new Date();
 
     this.view.showNextScreen = (answer) => {
+      window.clearTimeout(this.view.model.state.timerId);
+
       if (!answer) {
         --state.lives;
       }

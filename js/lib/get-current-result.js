@@ -9,8 +9,8 @@ const getCurrentResult = (state) => {
     amountLivesLeft: state.lives
   };
 
-  const countTotalPoints = ((sum, answer) => {
-    switch (answer) {
+  const countTotalPoints = ((sum, item) => {
+    switch (item) {
       case `correct`:
         ++currentResult.amountCorrectAnswers;
         sum += 100;

@@ -1,4 +1,4 @@
-import {GameParameters, amountPoints} from '../data/data';
+import {GameParameters} from '../data/data';
 
 const main = document.querySelector(`.central`);
 
@@ -15,7 +15,7 @@ class Utils {
     }
   }
 
-  static displayElement(newElement, parent, clear) {
+  static displayElement(newElement, parent, clear = false) {
     if (clear) {
       this.clearElement(parent);
     }
