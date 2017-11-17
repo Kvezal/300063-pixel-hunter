@@ -31,7 +31,7 @@ class GameScreen {
       App.showStatsScreen(state);
     };
 
-    this.view.player = player.init(this.model);
+    this.view.player = player.init(this.view);
     this.view.firstLevelType = firstLevelType.init(this.view);
     this.view.secondLevelType = secondLevelType.init(this.view);
     this.view.thirdLevelType = thirdLevelType.init(this.view);

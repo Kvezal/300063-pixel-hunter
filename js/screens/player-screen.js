@@ -2,16 +2,20 @@ import App from '../application';
 import {GameParameters} from '../data/data';
 
 class PlayerScreen {
-  init(gameModel) {
+  init(gameView) {
     this.buttonBackHandler = (evt) => {
-      window.clearTimeout(this.timerId);
       evt.preventDefault();
       App.showGreetingScreen();
+      if (gameView) {
+        window.clearTimeout(gameModel.state.timerId);
+      }
     };
 
-    if (!gameModel) {
+    if (!gameView) {
       return this;
     }
+
+    const gameModel = gameView.model;
 
     this.tick = () => {
       if (gameModel.state.time > GameParameters.MIN_COUNT_TIME) {

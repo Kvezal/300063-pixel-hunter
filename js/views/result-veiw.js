@@ -23,7 +23,7 @@ class ResultView extends AbstractView {
   isWin(state) {
     return (
       state.answers.length === GameParameters.NUMBER_ANSWERS &&
-      state.lives > GameParameters.MIN_COUNT_LIVES
+      state.lives >= GameParameters.MIN_COUNT_LIVES
     );
   }
 

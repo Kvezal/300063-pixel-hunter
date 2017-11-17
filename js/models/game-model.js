@@ -25,7 +25,7 @@ class GameModel {
     return (
       (this.state.level < GameParameters.NUMBER_ANSWERS) &&
       (this.state.answers.length < GameParameters.NUMBER_ANSWERS) &&
-      (this.state.lives > GameParameters.MIN_COUNT_LIVES)
+      (this.state.lives >= GameParameters.MIN_COUNT_LIVES)
     );
   }
 
