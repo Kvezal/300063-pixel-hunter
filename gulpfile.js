@@ -13,7 +13,7 @@ const rename = require('gulp-rename');
 const imagemin = require('gulp-imagemin');
 const rollup = require('gulp-better-rollup');
 const sourcemaps = require('gulp-sourcemaps');
-var ghPages = require('gulp-gh-pages');
+const ghPages = require('gulp-gh-pages');
 
 gulp.task('style', function () {
   return gulp.src('sass/style.scss')
@@ -102,7 +102,7 @@ gulp.task('serve', ['assemble'], function () {
 });
 
 gulp.task('deploy', function () {
-  del('.publich');
+  del('.publish');
   return gulp.src('build/**/*')
     .pipe(ghPages());
 });
